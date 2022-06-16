@@ -25,7 +25,13 @@ RUN echo "export PYTHON2_EGG=$(ls /home/autoware/PythonAPI | grep py2.)" >> .bas
 # workaround we use a snapshot of the ROS apt repository to install an older version of the required
 # packages. 
 RUN sudo rm -f /etc/apt/sources.list.d/ros1-latest.list
+#RUN apt-key del 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
+#RUN sudo -E  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
+#RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key AD19BAB3CBF125EA
+# RUN sudo apt install curl
+# RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
 RUN sudo sh -c 'echo "deb http://snapshots.ros.org/melodic/2020-08-07/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list.d/ros-snapshots.list'
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
         python-pip \
@@ -33,6 +39,14 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
         ros-melodic-ackermann-msgs \
         ros-melodic-derived-object-msgs \
     && sudo rm -rf /var/lib/apt/lists/*
+# RUN sudo apt-get install -y --no-install-recommends \
+#         python-pip \
+#         python-wheel \
+#         ros-melodic-ackermann-msgs \
+#         ros-melodic-derived-object-msgs \
+#     && sudo rm -rf /var/lib/apt/lists/*
+
+
 RUN pip install simple-pid pygame networkx==2.2
 
 RUN git clone -b '0.9.10.1' --recurse-submodules https://github.com/carla-simulator/ros-bridge.git
