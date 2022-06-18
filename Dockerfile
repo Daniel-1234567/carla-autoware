@@ -25,6 +25,9 @@ RUN echo "export PYTHON2_EGG=$(ls /home/autoware/PythonAPI | grep py2.)" >> .bas
 # workaround we use a snapshot of the ROS apt repository to install an older version of the required
 # packages. 
 RUN sudo rm -f /etc/apt/sources.list.d/ros1-latest.list
+
+# Todo: fix the key errors
+
 #RUN apt-key del 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
 #RUN sudo -E  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
