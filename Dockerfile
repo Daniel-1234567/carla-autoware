@@ -30,8 +30,16 @@ RUN sudo rm -f /etc/apt/sources.list.d/ros1-latest.list
 
 #RUN apt-key del 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
 #RUN sudo -E  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
-#RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key AD19BAB3CBF125EA
+
+#RUN sudo apt-key del 7fa2af80
+
+
+# To solve the key's issue, I refered to the discussion: https://forums.developer.nvidia.com/t/gpg-error-http-developer-download-nvidia-com-compute-cuda-repos-ubuntu1804-x86-64/212904/3
+
+RUN sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/3bf863cc.pub
+
+#RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key AD19BAB3CBF125EA
 # RUN sudo apt install curl
 # RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
